@@ -1,0 +1,1 @@
+This project is web library, which wrote in python language with Django framework. App gives the opportunity users choose and buy books, looking reviews and leave themselves. And users can get book in rent. 
