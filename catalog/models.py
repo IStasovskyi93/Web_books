@@ -31,9 +31,10 @@ class Book(models.Model):
     language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name="Język ksiązki", null=True)
     authors = models.ManyToManyField(Author, help_text="Wybież autora tworu", verbose_name="Autor(zy)")
     summary = models.TextField(max_length=1000, verbose_name="Opis")
-    isbn = models.CharField(max_length=13, help_text="Powinien mieścić 13 znaków", verbose_name="ISBN")
+    isbn = models.CharField(max_length=13, help_text="Powinien mieścić 13 znaków", verbose_name="ISBN", unique=True)
     ebook_price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name="Cena wersji elektronicznej")
     paper_price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name="Cena papierowej wersji")
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, verbose_name="Kategoria", null=True)
 
     def __str__(self):
         return self.title
@@ -43,8 +44,9 @@ class Book(models.Model):
 
 
 class BookInPaper(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Książka")
-    quantity = models.IntegerField(default=0, verbose_name="Ilość egzemplarów")
+    book = models.OneToOneField(Book, on_delete=models.CASCADE, null=True,
+                                verbose_name="Ilość egzemplarów papierowych", unique=True)
+    quantity = models.IntegerField(default=0, verbose_name="Ilość egzemplarów",)
 
     def __str__(self):
         return '%s %s' % (self.book, self.quantity)
