@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Nazwa: {{ book.title }}</h1>
+
+    <p><strong>Kategoria: {{ book.genre }}</strong></p>
+    {% for author in book.authors.all %}
+        <p><strong>Autor: </strong>
+            <a href="">{{ author.name}}</a></p>
+    {% endfor %}
+    <p><strong>Opis: {{ book.summary }}</strong></p>
+    <p><strong>:Język: {{ book.language }}</strong></p>
+    <p><strong>ISBN: {{ book.isbn }}</strong></p>
+
+<div style="margin-left:20px; margin-top:20px">
+    <h4>Ilośc dostępnych egzemplarów papierowych</h4>
+    <p>{{ book.bookinpaper_set.all() }}</p>
+</div>
+{% endblock content %}

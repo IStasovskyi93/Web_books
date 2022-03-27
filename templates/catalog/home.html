@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Główna strona</h1>
+    <p>Zapraszamy do <em>Świat książek</em>, gdzie można znaleźć ciekawyj wytwór dla każdej wolnej chwili.
+        Lecz także podręczniki dla nauki jężyków lub nowoczesnych technologij. Dla samych małych mamy wielie
+        ciekawych historij.
+    </p>
+<h2>Dynamicznyj kontent</h2>
+    <p>Ilość dannych:</p>
+    <ul>
+        <li><strong>Ilość książek: </strong>{{ num_books }}</li>
+        <li><strong>Ilość autorów: </strong>{{ num_authors }}</li>
+        <li><strong>Ilość kategorii: </strong>{{ num_genres }}</li>
+    </ul>
+{% endblock content %}
