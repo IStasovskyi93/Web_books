@@ -9,11 +9,11 @@
             <a href="">{{ author.name}}</a></p>
     {% endfor %}
     <p><strong>Opis: {{ book.summary }}</strong></p>
-    <p><strong>:Język: {{ book.language }}</strong></p>
+    <p><strong>Język: {{ book.language }}</strong></p>
     <p><strong>ISBN: {{ book.isbn }}</strong></p>
 
 <div style="margin-left:20px; margin-top:20px">
     <h4>Ilośc dostępnych egzemplarów papierowych</h4>
-    <p>{{ book.bookinpaper_set.all() }}</p>
+    <p>{{ book.bookinpaper }}</p>
 </div>
 {% endblock content %}
