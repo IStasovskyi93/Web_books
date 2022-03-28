@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Lista autorów z bazy danych</h2>
+  {% if author_list %}
+    {% for author in author_list.all %}
+<p><strong>{{ author.name }}</strong><br> Data urodzenia - <strong>{{ author.date_of_birth }}</strong><br>
+        {% if author.date_of_death %}
+          Data smierci-<strong>{{ author.date_of_death }}</strong></p>
+        {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>Autorzy nie dodani do bazy.</p>
+  {% endif %}
+{% endblock %}

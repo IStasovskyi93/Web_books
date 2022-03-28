@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('^books/$', views.BookListView.as_view(), name='book-list'),
     re_path(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),
+    re_path(r'^author/$', views.AuthorListView.as_view(), name='authors'),
 ]
