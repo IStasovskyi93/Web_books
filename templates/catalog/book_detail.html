@@ -5,7 +5,7 @@
 
     <p><strong>Kategoria: {{ book.genre }}</strong></p>
     {% for author in book.authors.all %}
-        <p><strong>Autor: </strong><a href="">{{ author.name}}</a></p>
+        <p><strong>Autor: </strong><a href="{{ author.get_absolute_url }}">{{ author.name}}</a></p>
     {% endfor %}
     <p><strong>Opis: {{ book.summary }}</strong></p>
     <p><strong>Język: {{ book.language }}</strong></p>

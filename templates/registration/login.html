@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if form.errors %}
+  <p>Imię lub hasło są nie prawidłowe. Spróbuj powtórnie.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Nie masz dostępu do tej strony. Proszę wejdź przez inni parametry.</p>
+  {% else %}
+    <p>Wejdź w system, żeby zobaczyć stronę.</p>
+  {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+  <tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ form.password.label.tag }}</td>
+    <td>{{ form.password }}</td>
+  </tr>
+</table>
+<input type="submit" value="Wejście" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{# Odnosi się do password_reset w URLconf #}
+<p><a href="{% url 'password_reset' %}">Zapomniałeś(aś) hasło?</a></p>
+{% endblock content %}
