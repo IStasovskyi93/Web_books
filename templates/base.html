@@ -30,6 +30,13 @@
                     <li><a href="{% url 'home' %}">Strona główna</a></li>
                     <li><a href="{% url 'book-list' %}">Kolekcja książek</a></li>
                     <li><a href="{% url 'authors' %}">Lista autorów</a></li>
+                    <li><a href="{% url 'addAuthor' %}">Zmienić dane o autorze</a></li>
+                    {% if user.is_authenticated %}
+                        <li>Użytkownik: {{ user.get_username }}</li>
+                        <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+                    {% endif %}
                 </ul>
                 {% endblock sidebar %}
             </div>

@@ -19,13 +19,18 @@ from catalog import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('add_author/', views.addAuthor, name='addAuthor'),
+    path('edit_author/<int:id>/', views.editAuthor, name='editAuthor'),
+    path('create_author/', views.createAuthor, name='createAuthor'),
+    path('del_author/<int:id>/', views.delAuthor, name='delAuthor'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     re_path('^books/$', views.BookListView.as_view(), name='book-list'),
     re_path(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),
     re_path(r'^author/$', views.AuthorListView.as_view(), name='authors'),
     re_path(r'^author/(?P<pk>\d+)$', views.AuthorDetailView.as_view(), name='author-detail'),
+    re_path(r'^book/create/$', views.BookCreate.as_view(), name='book_create'),
+    re_path(r'^book/update/(?P<pk>\d+)$', views.BookUpdate.as_view(), name='book_update'),
+    re_path(r'^book/delete/(?P<pk>\d+)$', views.BookDelete.as_view(), name='book_delete'),
 ]
 
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]

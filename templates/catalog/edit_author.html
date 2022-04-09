@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h3>Potoczne dane o autorze:<br>{{author.name}}<br>{{author.nationality}}<br>{{author.date_of_birth}}</h3>
+
+  <form method="POST">
+    {% csrf_token %}
+    <p> <label>Zmiana imienia i nazwiska</label><br>
+        <input type="text" name="name" value="{{author.name}}" />
+    </p>
+    <p> <label>Zmiana kraja pochodzenia</label><br>
+        <input type="text" name="nationality" value="{{author.nationality}}" />
+    </p>
+    <p> <label>Zmiana daty urodzenia</label><br>
+        <input type="date" name="date_of_birth" value="{{author.date_of_birth}}" />
+    </p>
+    <input type="submit" value="Zapisz zmiany" >
+  </form>
+{% endblock content %}

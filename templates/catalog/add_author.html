@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Lista authorów w bazie danych</h3>
+<table>
+    <thead><th>Id</th><th>----Imię Nazwisko----</th><th>Funkcje</th><th></th></thead>
+{% if author %}
+    {% for author in author.all %}
+        <tr>
+            <td>{{author.id}}</td>
+            <td>{{author.name}}</td>
+            <td><a href="/edit_author/{{author.id}}"/>Zmienić</a> ,
+                <a href="/del_author/{{author.id}}">Usunąć</a></td>
+        </tr>
+    {% endfor %}
+{% else %}
+    <p>W bazie danych niema autorów</p>
+{% endif %}
+</table>
+<br>
+<h3>Dodać autora do bazy</h3>
+<form method="post" action="/create_author/">
+    {% csrf_token %}
+    <table>{{ form }}</table>
+    <input type="submit" value="Zapisz" >
+</form>
+{% endblock content %}
+

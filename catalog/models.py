@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Language(models.Model):
@@ -22,8 +23,10 @@ class Author(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Imię i nazwisko autora")
     nationality = models.CharField(max_length=30, verbose_name="Narodowość")
     date_of_birth = models.DateField(verbose_name="Data urodzenia")
-    date_of_death = models.DateField(null=True, blank=True, verbose_name="Data smierci", help_text="Nie obowjąnzkowe")
+    date_of_death = models.DateField(null=True, blank=True, verbose_name="Data smierci",
+                                     help_text="Nie obowjąnzkowe", default='')
     objects = models.Manager()
+    DoesNotExist = models.Model
 
     def __str__(self):
         return self.name

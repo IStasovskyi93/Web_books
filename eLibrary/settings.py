@@ -102,6 +102,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = False
+
+DATE_INPUT_FORMATS = ['%Y-%m-%d', '', None, '%d.%m.%Y']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -122,3 +125,6 @@ except ModuleNotFoundError:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
+
+# ↓ dla możliwości testowania zmiany hasła
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
