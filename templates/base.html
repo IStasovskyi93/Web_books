@@ -28,9 +28,10 @@
                 {% block sidebar %}
                 <ul class="sidebar-nav">
                     <li><a href="{% url 'home' %}">Strona główna</a></li>
-                    <li><a href="{% url 'book-list' %}">Kolekcja książek</a></li>
+                    <li><a href="{% url 'books' %}">Kolekcja książek</a></li>
                     <li><a href="{% url 'authors' %}">Lista autorów</a></li>
                     <li><a href="{% url 'addAuthor' %}">Zmienić dane o autorze</a></li>
+                    <li><a href="{% url 'book_create' %}">Dodać książku</a></li>
                     {% if user.is_authenticated %}
                         <li>Użytkownik: {{ user.get_username }}</li>
                         <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
