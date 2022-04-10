@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Language(models.Model):
+    """służy do wkazania języka tworu"""
     name = models.CharField(max_length=30, help_text="Język tworu", verbose_name="Language", unique=True)
     objects = models.Manager()
 
@@ -12,6 +13,7 @@ class Language(models.Model):
 
 
 class Genre(models.Model):
+    """prezentuję żanr tworu"""
     name = models.CharField(max_length=30, unique=True, verbose_name="Kategoria")
     objects = models.Manager()
 
@@ -20,22 +22,24 @@ class Genre(models.Model):
 
 
 class Author(models.Model):
+    """model dla wpisania autora, pole date_of_death nie obowjązkowe do uzupełnienia"""
     name = models.CharField(max_length=100, unique=True, verbose_name="Imię i nazwisko autora")
     nationality = models.CharField(max_length=30, verbose_name="Narodowość")
     date_of_birth = models.DateField(verbose_name="Data urodzenia")
     date_of_death = models.DateField(null=True, blank=True, verbose_name="Data smierci",
-                                     help_text="Nie obowjąnzkowe", default='')
+                                     help_text="Nie obowjąnzkowe")
     objects = models.Manager()
     DoesNotExist = models.Model
 
     def __str__(self):
         return self.name
-
+    """ ↓↓↓ zwraca URL-adres dla wyświetlenia zapisu modeli na stronie internetowej"""
     def get_absolute_url(self):
         return reverse('author-detail', args=[str(self.id)])
 
 
 class Book(models.Model):
+    """model z relacją 1:* do model language oraz genre, i *:* do modeli Author"""
     title = models.CharField(max_length=150, verbose_name="Tytuł książki")
     language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name="Język ksiązki", null=True)
     authors = models.ManyToManyField(Author, help_text="Wybież autora tworu", verbose_name="Autor(zy)")
@@ -54,6 +58,7 @@ class Book(models.Model):
 
 
 class BookInPaper(models.Model):
+    """ma relacje 1:1 do modeli Book"""
     book = models.OneToOneField(Book, on_delete=models.CASCADE, null=True,
                                 verbose_name="Ilość egzemplarów papierowych", unique=True)
     quantity = models.IntegerField(default=0, verbose_name="Ilość egzemplarów",)
@@ -64,27 +69,7 @@ class BookInPaper(models.Model):
 
 
 
-# class Order(models.Model):
-#     sum_price_net = models.DecimalField(decimal_places=4, max_digits=2)
-#     sum_price_gross = models.DecimalField(decimal_places=4, max_digits=2)
-#     is_paid = models.ForeignKey('Payment', on_delete=models.DO_NOTHING)
-#     pay_time = models.DateTimeField(auto_now_add=True)
 
-
-
-# class Basket(models.Model):
-#     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-#     is_paper = models.BooleanField()
-#     price_net = models.DecimalField(decimal_places=4, max_digits=2)
-#     price_gross = models.DecimalField(decimal_places=4, max_digits=2)
-#     date = models.DateTimeField(auto_now_add=True)
-
-# class User(models.Model):
-#     first_name = models.CharField(max_length=20)
-#     last_name = models.CharField(max_length=30, null=True)
-#     age = models.IntegerField()
-#     email = models.EmailField()
-#     password =
 
 
 

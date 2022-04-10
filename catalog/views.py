@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import *
 from .models import Book, Author, Genre
-from django.views import generic, View
+from django.views import generic
 from django.urls import reverse_lazy
 from .forms import AuthorForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 def home(request):
+    """strona główna z pokazem zagalnej ilości książek, autorów oraz vizytów zalogowanego uzytkownika"""
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
     num_genres = Genre.objects.all().count()
@@ -18,13 +19,14 @@ def home(request):
 
 
 def addAuthor(request):
+    """implementacja formy na stronie z listą autorów"""
     author = Author.objects.all()
     authorsform = AuthorForm()
     return render(request, "catalog/add_author.html", {'form': authorsform, 'author': author})
 
 
-# create author page
 def createAuthor(request):
+    """tworzenie nowego autora"""
     if request.method == "POST":
         author = Author()
         author.name = request.POST.get("name")
@@ -34,8 +36,8 @@ def createAuthor(request):
         return HttpResponseRedirect("/add_author/")
 
 
-# delete author
 def delAuthor(request, id):
+    """usuwanie autora"""
     try:
         author = Author.objects.get(id=id)
         author.delete()
@@ -44,14 +46,14 @@ def delAuthor(request, id):
         return HttpResponseNotFound("<h2>Authora nie znaleziono</h2>")
 
 
-# edit author objects
 def editAuthor(request, id):
+    """edytowanie autora z przekierowaniem"""
     author = Author.objects.get(id=id)
     if request.method == "POST":
         author.name = request.POST.get("name")
         author.nationality = request.POST.get("nationality")
         author.date_of_birth = request.POST.get("date_of_birth")
-        author.date_of_death = request.POST.get("date_of_death")
+        # author.date_of_death = request.POST.get("date_of_death")
         author.save()
         return HttpResponseRedirect("/add_author/")
     else:
@@ -59,35 +61,44 @@ def editAuthor(request, id):
 
 
 class BookCreate(CreateView):
+    """tworzenie książki z wykożystaniwm widoku generycznego
+       templatka powinna mieć nazwe: model_name_form.html"""
     model = Book
     fields = '__all__'
     success_url = reverse_lazy('books')
 
 
 class BookUpdate(UpdateView):
+    """widok generyczny UpdateView"""
     model = Book
     fields = '__all__'
     success_url = reverse_lazy('books')
 
 
 class BookDelete(DeleteView):
+    """nazwa templatki musi być: model_name_confirm_delete.html"""
     model = Book
     success_url = reverse_lazy('books')
 
 
 class BookListView(generic.ListView):
+    """generic view wyciąga dane z bazy modeli Book, po czym wypełnia templatkez listą książek
+       templatka powinna mieć nazwe: nazwa_modeli_list.html"""
     model = Book
     paginate_by = 3
 
 
 class BookDetailView(generic.DetailView):
+    """generic view dla prezentowania detali książki przez templatke book_detail.html"""
     model = Book
 
 
 class AuthorListView(generic.ListView):
+    """generic view wyciąga dane z bazy modeli Author, po czym wypełnia templatke z listą autorów"""
     model = Author
     paginate_by = 3
 
 
 class AuthorDetailView(generic.DetailView):
+    """generic view dla prezentowania detali autora przez templatke author_detail.html"""
     model = Author

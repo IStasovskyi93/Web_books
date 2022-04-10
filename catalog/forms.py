@@ -6,11 +6,12 @@ from .models import Author
 
 
 class AuthorForm(ModelForm):
-    date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label='Data urodzenia')
+    """forma bazująca na modeli Author przez class Meta"""
+    # date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label='Data urodzenia')
 
     class Meta:
         model = Author
-        fields = ['name', 'nationality', 'date_of_birth']
+        fields = ['name', 'nationality', 'date_of_birth', 'date_of_death']
 
 
 

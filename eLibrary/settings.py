@@ -126,5 +126,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 
-# ↓ dla możliwości testowania zmiany hasła
+"""↓ dla możliwości testowania zmiany hasła"""
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
